@@ -1,0 +1,37 @@
+From:	Scheme Partition Tests
+	No bugs found yet.
+	
+From:	Host Partition Tests
+	Test Results:
+		PASS -- Result / Expected == false / false --- URL tested = http://Test?action=view
+		FAIL -- Result / Expected == false / true --- URL tested = http://google.com?action=view
+		PASS -- Result / Expected == false / false --- URL tested = http://www.google?action=view
+		PASS -- Result / Expected == false / false --- URL tested = http://www@google.com?action=view
+		FAIL -- Result / Expected == false / true --- URL tested = http://www.com?action=view
+		FAIL -- Result / Expected == false / true --- URL tested = http://www.google.com?action=view
+		
+From:	Port Partition Tests
+	Test Results:
+		PASS -- Result / Expected == false / false --- URL tested = http://www.google.comTest
+		PASS -- Result / Expected == true / true --- URL tested = http://www.google.com
+		PASS -- Result / Expected == false / false --- URL tested = http://www.google.com:
+		PASS -- Result / Expected == true / true --- URL tested = http://www.google.com:1
+		PASS -- Result / Expected == true / true --- URL tested = http://www.google.com:12
+		PASS -- Result / Expected == true / true --- URL tested = http://www.google.com:123
+		FAIL -- Result / Expected == false / true --- URL tested = http://www.google.com:1234
+		FAIL -- Result / Expected == false / true --- URL tested = http://www.google.com:12345
+		PASS -- Result / Expected == false / false --- URL tested = http://www.google.com:123456
+		PASS -- Result / Expected == false / false --- URL tested = http://www.google.com:1234567
+		PASS -- Result / Expected == false / false --- URL tested = http://www.google.com:xyz
+
+From:	Path Partition Tests
+	No bugs found yet.
+	
+From:	Query Partition Tests
+	Test Results:
+		PASS -- Result / Expected == false / false --- URL tested = http://www.google.comTest
+		PASS -- Result / Expected == true / true --- URL tested = http://www.google.com
+		PASS -- Result / Expected == false / false --- URL tested = http://www.google.comurl
+		FAIL -- Result / Expected == false / true --- URL tested = http://www.google.com?this=that
+		FAIL -- Result / Expected == false / true --- URL tested = http://www.google.com?action=this&that=y0
+		FAIL -- Result / Expected == false / true --- URL tested = http://www.google.com??
