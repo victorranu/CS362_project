@@ -1,3 +1,22 @@
+From:	Full URL Manual Tests
+	Test Results:
+		PASS -- Result / Expected == false / false --- URL tested = Test
+		PASS -- Result / Expected == true / true --- URL tested = http://www.google.com
+		PASS -- Result / Expected == true / true --- URL tested = https://google.com:99
+		PASS -- Result / Expected == false / false --- URL tested = www.google.com
+		FAIL -- Result / Expected == false / true --- URL tested = https://google.com:3535
+		PASS -- Result / Expected == false / false --- URL tested = http://google.com.
+		FAIL -- Result / Expected == true / false --- URL tested = http://256.256.256.256
+		FAIL -- Result / Expected == false / true --- URL tested = http://google.com?action=lend
+		PASS -- Result / Expected == true / true --- URL tested = http://255.255.255.255
+		PASS -- Result / Expected == true / true --- URL tested = http://1.0.9.4
+		PASS -- Result / Expected == false / false --- URL tested = http://255.0.-10.255
+		PASS -- Result / Expected == false / false --- URL tested = 
+		PASS -- Result / Expected == false / false --- URL tested = x
+		PASS -- Result / Expected == false / false --- URL tested = 9
+		PASS -- Result / Expected == true / true --- URL tested = https://123.123.123.123.com
+		PASS -- Result / Expected == true / true --- URL tested = https://www.123.123.123.123.com
+		
 From:	Scheme Partition Tests
 	No bugs found yet.
 	
@@ -35,3 +54,20 @@ From:	Query Partition Tests
 		FAIL -- Result / Expected == false / true --- URL tested = http://www.google.com?this=that
 		FAIL -- Result / Expected == false / true --- URL tested = http://www.google.com?action=this&that=y0
 		FAIL -- Result / Expected == false / true --- URL tested = http://www.google.com??
+		
+From:	IPv4 Partition Tests
+	Test Results:
+		PASS -- Result / Expected == false / false --- URL tested = http://Test
+		PASS -- Result / Expected == false / false --- URL tested = http://
+		PASS -- Result / Expected == false / false --- URL tested = http://...
+		PASS -- Result / Expected == true / true --- URL tested = http://0.0.0.0
+		PASS -- Result / Expected == true / true --- URL tested = http://12.241.195.1
+		PASS -- Result / Expected == true / true --- URL tested = http://255.255.255.255
+		FAIL -- Result / Expected == true / false --- URL tested = http://256.0.0.0
+		FAIL -- Result / Expected == true / false --- URL tested = http://0.256.0.0
+		FAIL -- Result / Expected == true / false --- URL tested = http://0.0.256.0
+		FAIL -- Result / Expected == true / false --- URL tested = http://0.0.0.256
+		PASS -- Result / Expected == false / false --- URL tested = http://xyz.0.0.0
+		PASS -- Result / Expected == false / false --- URL tested = http://0.xyz.0.0
+		PASS -- Result / Expected == false / false --- URL tested = http://0.0.xyz.0
+		PASS -- Result / Expected == false / false --- URL tested = http://0.0.0.xyz

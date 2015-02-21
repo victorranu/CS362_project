@@ -100,22 +100,22 @@ public class UrlValidatorTest extends TestCase {
 		if (displayResults == true)	{	displayResults(urlVal, manualUrlList, "Manual Tests");	}
 		
 		// the assert statements (run each assert w/out loop so we know which assert fails)
-	   assertEquals(manualUrlList[0].valid, false);
-	   assertEquals(manualUrlList[1].valid, true);
-	   assertEquals(manualUrlList[2].valid, true);
-	   assertEquals(manualUrlList[3].valid, false);
-	   assertEquals(manualUrlList[4].valid, true);
-	   assertEquals(manualUrlList[5].valid, false);
-	   assertEquals(manualUrlList[6].valid, false);
-	   assertEquals(manualUrlList[7].valid, true);
-	   assertEquals(manualUrlList[8].valid, true);
-	   assertEquals(manualUrlList[9].valid, true);
-	   assertEquals(manualUrlList[10].valid, false);
-	   assertEquals(manualUrlList[11].valid, false);
-	   assertEquals(manualUrlList[12].valid, false);
-	   assertEquals(manualUrlList[13].valid, false);
-	   assertEquals(manualUrlList[14].valid, true);
-	   assertEquals(manualUrlList[15].valid, true);
+	   assertEquals(urlVal.isValid(manualUrlList[0].item), manualUrlList[0].valid);
+	   assertEquals(urlVal.isValid(manualUrlList[1].item), manualUrlList[1].valid);
+	   assertEquals(urlVal.isValid(manualUrlList[2].item), manualUrlList[2].valid);
+	   assertEquals(urlVal.isValid(manualUrlList[3].item), manualUrlList[3].valid);
+	   assertEquals(urlVal.isValid(manualUrlList[4].item), manualUrlList[4].valid);
+	   assertEquals(urlVal.isValid(manualUrlList[5].item), manualUrlList[5].valid);
+	   assertEquals(urlVal.isValid(manualUrlList[6].item), manualUrlList[6].valid);
+	   assertEquals(urlVal.isValid(manualUrlList[7].item), manualUrlList[7].valid);
+	   assertEquals(urlVal.isValid(manualUrlList[8].item), manualUrlList[8].valid);
+	   assertEquals(urlVal.isValid(manualUrlList[9].item), manualUrlList[9].valid);
+	   assertEquals(urlVal.isValid(manualUrlList[10].item), manualUrlList[10].valid);
+	   assertEquals(urlVal.isValid(manualUrlList[11].item), manualUrlList[11].valid);
+	   assertEquals(urlVal.isValid(manualUrlList[12].item), manualUrlList[12].valid);
+	   assertEquals(urlVal.isValid(manualUrlList[13].item), manualUrlList[13].valid);
+	   assertEquals(urlVal.isValid(manualUrlList[14].item), manualUrlList[14].valid);
+	   assertEquals(urlVal.isValid(manualUrlList[15].item), manualUrlList[15].valid);
   }
   
   /*   
@@ -152,12 +152,12 @@ public class UrlValidatorTest extends TestCase {
 	   if (displayResults == true)	{	displayResults(urlVal, manualSchemeList, "Scheme Partition Tests");	}
 	   
 	   // the assert statements (run each assert w/out loop so we know which assert fails)
-	   assertEquals(manualSchemeList[0].valid, false);
-	   assertEquals(manualSchemeList[1].valid, false);
-	   assertEquals(manualSchemeList[2].valid, false);
-	   assertEquals(manualSchemeList[3].valid, true);
-	   assertEquals(manualSchemeList[4].valid, true);
-	   assertEquals(manualSchemeList[5].valid, true);
+	   assertEquals(urlVal.isValid(manualSchemeList[0].item), manualSchemeList[0].valid);
+	   assertEquals(urlVal.isValid(manualSchemeList[1].item), manualSchemeList[1].valid);
+	   assertEquals(urlVal.isValid(manualSchemeList[2].item), manualSchemeList[2].valid);
+	   assertEquals(urlVal.isValid(manualSchemeList[3].item), manualSchemeList[3].valid);
+	   assertEquals(urlVal.isValid(manualSchemeList[4].item), manualSchemeList[4].valid);
+	   assertEquals(urlVal.isValid(manualSchemeList[5].item), manualSchemeList[5].valid);
   }
   
   public void testHost_Partition()
@@ -182,12 +182,12 @@ public class UrlValidatorTest extends TestCase {
 	
 		if (displayResults == true)	{	displayResults(urlVal, manualHostList, "Host Partition Tests");	}
 		
-		assertEquals(manualHostList[0].valid, false);
-		assertEquals(manualHostList[1].valid, true);
-		assertEquals(manualHostList[2].valid, false);
-		assertEquals(manualHostList[3].valid, false);
-		assertEquals(manualHostList[4].valid, true);
-		assertEquals(manualHostList[5].valid, true);
+		assertEquals(urlVal.isValid(manualHostList[0].item), manualHostList[0].valid);
+		assertEquals(urlVal.isValid(manualHostList[1].item), manualHostList[1].valid);
+		assertEquals(urlVal.isValid(manualHostList[2].item), manualHostList[2].valid);
+		assertEquals(urlVal.isValid(manualHostList[3].item), manualHostList[3].valid);
+		assertEquals(urlVal.isValid(manualHostList[4].item), manualHostList[4].valid);
+		assertEquals(urlVal.isValid(manualHostList[5].item), manualHostList[5].valid);
   }
   
   public void testPort_Partition()
@@ -216,18 +216,17 @@ public class UrlValidatorTest extends TestCase {
 	
 		if (displayResults == true)	{	displayResults(urlVal, manualPortList, "Port Partition Tests");	}
 		
-		assertEquals(manualPortList[0].valid, false);
-		assertEquals(manualPortList[1].valid, true);
-		assertEquals(manualPortList[2].valid, false);
-		assertEquals(manualPortList[3].valid, true);
-		assertEquals(manualPortList[4].valid, true);
-		assertEquals(manualPortList[5].valid, true);
-		assertEquals(manualPortList[6].valid, true);
-		assertEquals(manualPortList[7].valid, true);
-		assertEquals(manualPortList[8].valid, false);
-		assertEquals(manualPortList[9].valid, false);
-		assertEquals(manualPortList[10].valid, false);
-		
+		assertEquals(urlVal.isValid(manualPortList[0].item), manualPortList[0].valid);
+		assertEquals(urlVal.isValid(manualPortList[1].item), manualPortList[1].valid);
+		assertEquals(urlVal.isValid(manualPortList[2].item), manualPortList[2].valid);
+		assertEquals(urlVal.isValid(manualPortList[3].item), manualPortList[3].valid);
+		assertEquals(urlVal.isValid(manualPortList[4].item), manualPortList[4].valid);
+		assertEquals(urlVal.isValid(manualPortList[5].item), manualPortList[5].valid);
+		assertEquals(urlVal.isValid(manualPortList[6].item), manualPortList[6].valid);
+		assertEquals(urlVal.isValid(manualPortList[7].item), manualPortList[7].valid);
+		assertEquals(urlVal.isValid(manualPortList[8].item), manualPortList[8].valid);
+		assertEquals(urlVal.isValid(manualPortList[9].item), manualPortList[9].valid);
+		assertEquals(urlVal.isValid(manualPortList[10].item), manualPortList[10].valid);
   }
   
   public void testPath_Partition()
@@ -251,12 +250,12 @@ public class UrlValidatorTest extends TestCase {
 	
 		if (displayResults == true)	{	displayResults(urlVal, manualPathList, "Path Partition Tests");	}
 		
-		assertEquals(manualPathList[0].valid, false);
-		assertEquals(manualPathList[1].valid, true);
-		assertEquals(manualPathList[2].valid, false);
-		assertEquals(manualPathList[3].valid, true);
-		assertEquals(manualPathList[4].valid, true);
-		assertEquals(manualPathList[5].valid, false);
+		assertEquals(urlVal.isValid(manualPathList[0].item), manualPathList[0].valid);
+		assertEquals(urlVal.isValid(manualPathList[1].item), manualPathList[1].valid);
+		assertEquals(urlVal.isValid(manualPathList[2].item), manualPathList[2].valid);
+		assertEquals(urlVal.isValid(manualPathList[3].item), manualPathList[3].valid);
+		assertEquals(urlVal.isValid(manualPathList[4].item), manualPathList[4].valid);
+		assertEquals(urlVal.isValid(manualPathList[5].item), manualPathList[5].valid);
   }
   
   public void testQuery_Partition()
@@ -280,34 +279,58 @@ public class UrlValidatorTest extends TestCase {
 	
 		if (displayResults == true)	{	displayResults(urlVal, manualQueryList, "Query Partition Tests");	}
 		
-		assertEquals(manualQueryList[0].valid, false);
-		assertEquals(manualQueryList[1].valid, true);
-		assertEquals(manualQueryList[2].valid, false);
-		assertEquals(manualQueryList[3].valid, true);
-		assertEquals(manualQueryList[4].valid, true);
-		assertEquals(manualQueryList[5].valid, true);
+		assertEquals(urlVal.isValid(manualQueryList[0].item), manualQueryList[0].valid);
+		assertEquals(urlVal.isValid(manualQueryList[1].item), manualQueryList[1].valid);
+		assertEquals(urlVal.isValid(manualQueryList[2].item), manualQueryList[2].valid);
+		assertEquals(urlVal.isValid(manualQueryList[3].item), manualQueryList[3].valid);
+		assertEquals(urlVal.isValid(manualQueryList[4].item), manualQueryList[4].valid);
+		assertEquals(urlVal.isValid(manualQueryList[5].item), manualQueryList[5].valid);
   }
    
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
+  public void testIPv4_Partition()
+  {
+	   UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+	   
+	   String testThisItem = "Test";	// Enter any Scheme test string here
+	   boolean testThisValid = false; 	// State if the test item above is expected to be [true or false]
+	   
+	   String fixedStr = "http://";
+	   
+	   ResultPair[] manualIPv4List = 
+	   {																		// Test #
+			   new ResultPair(fixedStr + testThisItem		, testThisValid),	// This is for a quick test check
+			   new ResultPair(fixedStr + ""					, false),			// 1
+			   new ResultPair(fixedStr + "..."				, false),			// 2
+			   new ResultPair(fixedStr + "0.0.0.0"			, true),			// 3
+			   new ResultPair(fixedStr + "12.241.195.1"		, true),			// 4
+			   new ResultPair(fixedStr + "255.255.255.255"	, true),			// 5
+			   new ResultPair(fixedStr + "256.0.0.0"		, false),			// 6
+			   new ResultPair(fixedStr + "0.256.0.0"		, false),			// 7
+			   new ResultPair(fixedStr + "0.0.256.0"		, false),			// 8
+			   new ResultPair(fixedStr + "0.0.0.256"		, false),			// 9
+			   new ResultPair(fixedStr + "xyz.0.0.0"		, false),			// 10
+			   new ResultPair(fixedStr + "0.xyz.0.0"		, false),			// 11
+			   new ResultPair(fixedStr + "0.0.xyz.0"		, false),			// 12
+			   new ResultPair(fixedStr + "0.0.0.xyz"		, false)			// 13
+	   };
+	
+		if (displayResults == true)	{	displayResults(urlVal, manualIPv4List, "IPv4 Partition Tests");	}
+		
+		assertEquals(urlVal.isValid(manualIPv4List[0].item), manualIPv4List[0].valid);
+		assertEquals(urlVal.isValid(manualIPv4List[1].item), manualIPv4List[1].valid);
+		assertEquals(urlVal.isValid(manualIPv4List[2].item), manualIPv4List[2].valid);
+		assertEquals(urlVal.isValid(manualIPv4List[3].item), manualIPv4List[3].valid);
+		assertEquals(urlVal.isValid(manualIPv4List[4].item), manualIPv4List[4].valid);
+		assertEquals(urlVal.isValid(manualIPv4List[5].item), manualIPv4List[5].valid);
+		assertEquals(urlVal.isValid(manualIPv4List[6].item), manualIPv4List[6].valid);
+		assertEquals(urlVal.isValid(manualIPv4List[7].item), manualIPv4List[7].valid);
+		assertEquals(urlVal.isValid(manualIPv4List[8].item), manualIPv4List[8].valid);
+		assertEquals(urlVal.isValid(manualIPv4List[9].item), manualIPv4List[9].valid);
+		assertEquals(urlVal.isValid(manualIPv4List[10].item), manualIPv4List[10].valid);
+		assertEquals(urlVal.isValid(manualIPv4List[11].item), manualIPv4List[11].valid);
+		assertEquals(urlVal.isValid(manualIPv4List[12].item), manualIPv4List[12].valid);
+		assertEquals(urlVal.isValid(manualIPv4List[13].item), manualIPv4List[13].valid);
+  }
    
    public void testIsValid()
    {
