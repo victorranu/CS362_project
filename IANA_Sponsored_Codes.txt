@@ -1,0 +1,15 @@
+aero
+asia
+cat
+coop
+edu
+gov
+int
+jobs
+mil
+mobi
+museum
+post
+tel
+travel
+xxx

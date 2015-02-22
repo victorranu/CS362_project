@@ -70,7 +70,7 @@ public class UrlValidatorTest extends TestCase {
 	}
   
   //public void testManualTest()
-  public void testFullUrl_Manual()
+  public void test_FullUrl_Manual()
   {
 	   String testThisItem = "Test";	// Enter any URL test string here
 	   boolean testThisValid = false; 	// State if the test item above is expected to be [true or false]
@@ -130,7 +130,7 @@ public class UrlValidatorTest extends TestCase {
   }
  */
   
-  public void testScheme_Partition()
+  public void test_Scheme_Partition()
   {
 	   UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
 	   
@@ -160,7 +160,7 @@ public class UrlValidatorTest extends TestCase {
 	   assertEquals(urlVal.isValid(manualSchemeList[5].item), manualSchemeList[5].valid);
   }
   
-  public void testHost_Partition()
+  public void test_Host_Partition()
   {
 	   UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
 	   
@@ -190,7 +190,7 @@ public class UrlValidatorTest extends TestCase {
 		assertEquals(urlVal.isValid(manualHostList[5].item), manualHostList[5].valid);
   }
   
-  public void testPort_Partition()
+  public void test_Port_Partition()
   {
 	   UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
 	   
@@ -229,7 +229,7 @@ public class UrlValidatorTest extends TestCase {
 		assertEquals(urlVal.isValid(manualPortList[10].item), manualPortList[10].valid);
   }
   
-  public void testPath_Partition()
+  public void test_Path_Partition()
   {
 	   UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
 	   
@@ -258,7 +258,7 @@ public class UrlValidatorTest extends TestCase {
 		assertEquals(urlVal.isValid(manualPathList[5].item), manualPathList[5].valid);
   }
   
-  public void testQuery_Partition()
+  public void test_Query_Partition()
   {
 	   UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
 	   
@@ -287,7 +287,7 @@ public class UrlValidatorTest extends TestCase {
 		assertEquals(urlVal.isValid(manualQueryList[5].item), manualQueryList[5].valid);
   }
    
-  public void testIPv4_Partition()
+  public void test_IPv4_Partition()
   {
 	   UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
 	   
@@ -359,11 +359,95 @@ public class UrlValidatorTest extends TestCase {
 	   }
    }
    
+   /*
+    * Testing the tld process
+    * All data pulled from http://www.iana.org/domains/root/db
+    */
+   public void test_Tld_Partition()
+   {
+	   UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+	   
+	   String fixedStr = "http://www.google.";
+	   String testThisItem = "Test";	// Enter any Scheme test string here
+	   boolean testThisValid = false; 	// State if the test item above is expected to be [true or false]
+	   
+	   ResultPair[] manualTld_GenericList = 
+	   {
+			   new ResultPair(fixedStr + testThisItem	, testThisValid),	// This is for a quick test check
+			   new ResultPair(fixedStr + "biz"		, true),				// 1
+			   new ResultPair(fixedStr + "com"		, true),				// 2
+			   new ResultPair(fixedStr + "biz"		, true),				// 3
+			   new ResultPair(fixedStr + "market"	, true),				// 4
+			   new ResultPair(fixedStr + "zip"		, true)					// 5
+	   };
+	   
+	   ResultPair[] manualTld_InfrastructureList = 
+	   {
+			   new ResultPair(fixedStr + testThisItem	, testThisValid),	// This is for a quick test check
+			   new ResultPair(fixedStr + "this"		, false),				// 1
+			   new ResultPair(fixedStr + "arpa"		, true),				// 2
+	   };
+	   
+	   ResultPair[] manualTld_SponsoredList = 
+	   {
+			   new ResultPair(fixedStr + testThisItem	, testThisValid),	// This is for a quick test check
+			   new ResultPair(fixedStr + "aero"		, true),				// 1
+			   new ResultPair(fixedStr + "coop"		, true),				// 2
+			   new ResultPair(fixedStr + "jobs"		, true),				// 3
+			   new ResultPair(fixedStr + "post"		, true),				// 4
+			   new ResultPair(fixedStr + "xxx"		, true),				// 5
+	   };
+	   
+	   ResultPair[] manualTld_CountryList = 
+	   {
+			   new ResultPair(fixedStr + testThisItem	, testThisValid),	// This is for a quick test check
+			   new ResultPair(fixedStr + "ax"		, true),				// 1
+			   new ResultPair(fixedStr + "gg"		, true),				// 2
+			   new ResultPair(fixedStr + "sa"		, true),				// 3
+			   new ResultPair(fixedStr + "us"		, true),				// 4
+			   new ResultPair(fixedStr + "vc"		, true),				// 5
+	   };
+	   
+	   if (displayResults == true)	{	displayResults(urlVal, manualTld_GenericList, "TLD - Generic Partition Tests");	}
+	   if (displayResults == true)	{	displayResults(urlVal, manualTld_InfrastructureList, "TLD - Infrastructure Partition Tests");	}
+	   if (displayResults == true)	{	displayResults(urlVal, manualTld_SponsoredList, "TLD - Sponsored Partition Tests");	}
+	   if (displayResults == true)	{	displayResults(urlVal, manualTld_CountryList, "TLD - Country Partition Tests");	}
+	   
+	// Quick test tlds
+	   assertEquals(urlVal.isValid(manualTld_GenericList[0].item), manualTld_GenericList[0].valid);
+	   assertEquals(urlVal.isValid(manualTld_InfrastructureList[0].item), manualTld_InfrastructureList[0].valid);
+	   assertEquals(urlVal.isValid(manualTld_SponsoredList[0].item), manualTld_SponsoredList[0].valid);
+	   assertEquals(urlVal.isValid(manualTld_CountryList[0].item), manualTld_CountryList[0].valid);
+	   
+	// Generic tlds
+	   assertEquals(urlVal.isValid(manualTld_GenericList[1].item), manualTld_GenericList[1].valid);
+	   assertEquals(urlVal.isValid(manualTld_GenericList[2].item), manualTld_GenericList[2].valid);
+	   assertEquals(urlVal.isValid(manualTld_GenericList[3].item), manualTld_GenericList[3].valid);
+	   assertEquals(urlVal.isValid(manualTld_GenericList[4].item), manualTld_GenericList[4].valid);
+	   assertEquals(urlVal.isValid(manualTld_GenericList[5].item), manualTld_GenericList[5].valid);
+	// Infrastructure tlds
+	   assertEquals(urlVal.isValid(manualTld_InfrastructureList[1].item), manualTld_InfrastructureList[1].valid);
+	   assertEquals(urlVal.isValid(manualTld_InfrastructureList[2].item), manualTld_InfrastructureList[2].valid);
+	   assertEquals(urlVal.isValid(manualTld_InfrastructureList[3].item), manualTld_InfrastructureList[3].valid);
+	   assertEquals(urlVal.isValid(manualTld_InfrastructureList[4].item), manualTld_InfrastructureList[4].valid);
+	   assertEquals(urlVal.isValid(manualTld_InfrastructureList[5].item), manualTld_InfrastructureList[5].valid);
+	// Sponsored tlds
+	   assertEquals(urlVal.isValid(manualTld_SponsoredList[1].item), manualTld_SponsoredList[1].valid);
+	   assertEquals(urlVal.isValid(manualTld_SponsoredList[2].item), manualTld_SponsoredList[2].valid);
+	   assertEquals(urlVal.isValid(manualTld_SponsoredList[3].item), manualTld_SponsoredList[3].valid);
+	   assertEquals(urlVal.isValid(manualTld_SponsoredList[4].item), manualTld_SponsoredList[4].valid);
+	   assertEquals(urlVal.isValid(manualTld_SponsoredList[5].item), manualTld_SponsoredList[5].valid);
+	// Country tlds
+	   assertEquals(urlVal.isValid(manualTld_CountryList[1].item), manualTld_CountryList[1].valid);
+	   assertEquals(urlVal.isValid(manualTld_CountryList[2].item), manualTld_CountryList[2].valid);
+	   assertEquals(urlVal.isValid(manualTld_CountryList[3].item), manualTld_CountryList[3].valid);
+	   assertEquals(urlVal.isValid(manualTld_CountryList[4].item), manualTld_CountryList[4].valid);
+	   assertEquals(urlVal.isValid(manualTld_CountryList[5].item), manualTld_CountryList[5].valid);
+   }
+   
    public void testAnyOtherUnitTest()
    {
-	   	
-	   	
-	   	
+	   
    }
    /**
     * Create set of tests by taking the testUrlXXX arrays and

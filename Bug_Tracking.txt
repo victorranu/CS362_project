@@ -80,37 +80,48 @@ From:	IPv4 Partition Tests
 			- if (iIpSegment > 255) { return true; }
 			- the return value is incorrect, this should return a false when a iIpSegment is > 255.
 
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
+From:	TLD Partition Tests
+	Test Results:
+		TLD - Country:
+			PASS -- Result / Expected == false / false --- URL tested = http://www.google.Test
+			PASS -- Result / Expected == true / true --- URL tested = http://www.google.ax
+			PASS -- Result / Expected == true / true --- URL tested = http://www.google.gg
+			FAIL -- Result / Expected == false / true --- URL tested = http://www.google.sa
+			FAIL -- Result / Expected == false / true --- URL tested = http://www.google.us
+			FAIL -- Result / Expected == false / true --- URL tested = http://www.google.vc
+		TLD - Infrastructure:
+			PASS -- Result / Expected == false / false --- URL tested = http://www.google.Test
+			PASS -- Result / Expected == false / false --- URL tested = http://www.google.this
+			PASS -- Result / Expected == true / true --- URL tested = http://www.google.arpa
+		TLD - Sponsored:
+			PASS -- Result / Expected == false / false --- URL tested = http://www.google.Test
+			PASS -- Result / Expected == true / true --- URL tested = http://www.google.aero
+			PASS -- Result / Expected == true / true --- URL tested = http://www.google.coop
+			PASS -- Result / Expected == true / true --- URL tested = http://www.google.jobs
+			FAIL -- Result / Expected == false / true --- URL tested = http://www.google.post
+			FAIL -- Result / Expected == false / true --- URL tested = http://www.google.xxx
+		TLD - Generic:
+			PASS -- Result / Expected == false / false --- URL tested = http://www.google.Test
+			PASS -- Result / Expected == true / true --- URL tested = http://www.google.biz
+			PASS -- Result / Expected == true / true --- URL tested = http://www.google.com
+			PASS -- Result / Expected == true / true --- URL tested = http://www.google.biz
+			FAIL -- Result / Expected == false / true --- URL tested = http://www.google.market
+			FAIL -- Result / Expected == false / true --- URL tested = http://www.google.zip
+		
+	Review:
+		- All data pulled from http://www.iana.org/domains/root/db
+		- Either there is a bug in this process or the Validator's list is not comprehensive
+			- Found my lists: [Infrastructure - Same], [Generic - Mine has more], [Country - Mine has more], 
+			  [Sponsored - contains some items from Validator's Generic], [I don't use a Local list, yet]
+			- While the lists may be different, I did find the Validator's COUNTRY_CODE_TLDS are missing a large chunk of standard codes to include us (United States)
+			- Found issue in file: DomainValidator.java line: 248-359
+			- Reproducible: Yes --- send a valid tld that is not in any list. 
+				- Example: .us (Country Code for United States)
+			- The COUNTRY_CODE_TLDS String array need to have a more inclusive list of country cods
+			- The GENERIC_TLDS String array need to have a more inclusive list of country cods
+
+Bug Summary:
+	Bug #	-	 		File				-	Line	- 	Issue
+=======================================================================================
+	0001	-	InetAddressValidator.java	-	96		- 	Logic error: iIpSegment > 255 returns true. This return should be false.
+	0002	-	DomainValidator.java		- 	248-359	- 	The COUNTRY_CODE_TLDS & GENERIC_TLDS are not comprehensive. COUNTRY_CODE_TLDS list is grossly missing country codes.
