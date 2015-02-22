@@ -71,3 +71,46 @@ From:	IPv4 Partition Tests
 		PASS -- Result / Expected == false / false --- URL tested = http://0.xyz.0.0
 		PASS -- Result / Expected == false / false --- URL tested = http://0.0.xyz.0
 		PASS -- Result / Expected == false / false --- URL tested = http://0.0.0.xyz
+	
+	Review:
+		- sent 0.0.0.256 to isValidInet4Address() in InetAddressValidator.java
+		- followed step by step to review the code process
+		- Found issue in file: InetAddressValidator.java line: 96
+		- Reproducible: Yes --- send a iIpSegment to the isValidInet4Address() with a value of >255.
+			- if (iIpSegment > 255) { return true; }
+			- the return value is incorrect, this should return a false when a iIpSegment is > 255.
+
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				

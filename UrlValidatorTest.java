@@ -331,6 +331,25 @@ public class UrlValidatorTest extends TestCase {
 		assertEquals(urlVal.isValid(manualIPv4List[12].item), manualIPv4List[12].valid);
 		assertEquals(urlVal.isValid(manualIPv4List[13].item), manualIPv4List[13].valid);
   }
+  
+  /*
+   * Test is the issue found in testIPv4_Partition() is from the isValidInet4Address() method
+   * Send an IP and track its progress to find the issue found in testIPv4_Partition()
+   * Placed a line break on the isValidInet4Address() method and ran the below test
+   * 	Bug found: line: 96
+   * 		The return value is incorrect, this should return a false when a iIpSegment is > 255.
+   */
+  public void test_isValidInet4Address()
+  {
+	  String testStr = "0.0.0.256";
+	  boolean result;
+	   	
+	  InetAddressValidator InetVal = new InetAddressValidator();
+	   	
+	  result = InetVal.isValidInet4Address(testStr);
+	   	
+	  assertEquals(result, false);
+  }
    
    public void testIsValid()
    {
@@ -342,7 +361,9 @@ public class UrlValidatorTest extends TestCase {
    
    public void testAnyOtherUnitTest()
    {
-	   
+	   	
+	   	
+	   	
    }
    /**
     * Create set of tests by taking the testUrlXXX arrays and
