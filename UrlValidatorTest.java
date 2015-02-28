@@ -17,8 +17,9 @@
 
 
 import junit.framework.TestCase;
-
-
+import java.io.*;
+import java.util.*;
+import java.lang.*;
 
 
 
@@ -32,7 +33,7 @@ public class UrlValidatorTest extends TestCase {
 	// --------------------------------------------------------------------
 	public static int MyTestCount_T = 0;
 	public static int MyTestCount_F = 0;
-	public static boolean displayResults = true;
+	public static boolean displayResults = false;
 	// --------------------------------------------------------------------
 		
    private boolean printStatus = false;
@@ -445,9 +446,156 @@ public class UrlValidatorTest extends TestCase {
 	   assertEquals(urlVal.isValid(manualTld_CountryList[5].item), manualTld_CountryList[5].valid);
    }
    
+   /*
+    * Test all known good TLDs as pulled from http://www.iana.org/domains/root/db
+    */
+   public void test_AllKnownTLDs()
+   {
+	   boolean displayThisReport = false;
+	   
+	   /*
+	    *  Get the current dir of the program
+	    *  This will work from the src dir of the eclipse IDE for this program
+	    */
+	   String workingDir = System.getProperty("user.dir") + "\\src\\";
+	   
+	   /*
+	    * List of files containing types of TLDs to test
+	    */
+	   String[] tldFile = 
+		   {
+			   "IANA_Country_Codes.txt",
+			   "IANA_Generic_Codes.txt",
+			   "IANA_Infrastructure_Codes.txt",
+			   "IANA_Sponsored_Codes.txt"
+		   };
+	   
+	   /*
+	    * Set the array to hold the failure report summary
+	    * There will be 1 report summary generated per tldFile run
+	    */
+	   String[] failSummary = new String[tldFile.length];
+	   
+	   int i,f;	// loops
+	   int failCount = 0;
+	   ArrayList<ResultPair> rpList;
+	   String fixedStr = "http://www.google.";
+	   
+	   UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+	   
+	   for(f = 0; f < tldFile.length; f++)
+	   {
+		   // Used to read data from a file
+		   rpList = createResultPairList(workingDir, tldFile[f]);
+		   
+		   // Run these tlds through the validator
+		   for(i = 0; i < rpList.size(); i++)
+		   {
+			   if(displayThisReport)
+			   {
+				   try
+				   {
+					   assertTrue(urlVal.isValid(fixedStr + rpList.get(i).item));
+				   }
+				   catch (AssertionError e)
+				   {
+						   System.out.println(rpList.get(i).item + " - failed");
+						   failCount++;
+				   }
+			   }
+			   else
+			   {
+				   assertTrue(urlVal.isValid(fixedStr + rpList.get(i).item));
+			   }
+		   }
+		   
+		   failSummary[f] =   "tld List = " + tldFile[f] + "\n"
+		  					+ "Country Code count = "+ rpList.size() + "\n"
+		  					+ "Falure count = " + failCount + "\n";
+		   
+		   failCount = 0;
+	   }
+	   
+	   if(displayThisReport)
+	   {
+		   System.out.println("------------------------------------------");
+		   
+		   for(i = 0; i < failSummary.length; i++)
+		   {
+			   System.out.println(failSummary[i]);
+		   }
+	   }
+	   
+	   /*
+	    * This code does not produce a failed test if displayThisReport == true due to the try block
+	    * The following will check if there were any failures and cause an assertion failure if true.
+	    * 
+	    * If there is an assertion failure, set displayThisReport to false and run to get an assertion failure at the source
+	    */
+	   if(displayThisReport)
+	   {
+		   int checkIndex, errCount;
+		   String errorCountStr;
+		   
+		   for(i = 0; i < failSummary.length; i++)
+		   {
+			   checkIndex = failSummary[i].lastIndexOf("=") + 2;
+			   errorCountStr = failSummary[i].substring(checkIndex);
+			   errCount = Integer.parseInt(errorCountStr.substring(0, errorCountStr.length() - 1));
+			   
+			   assertEquals(0, errCount);
+		   }
+	   }
+   }
+   
+   public ArrayList<ResultPair> createResultPairList(String dir, String f)
+   {
+	   TeamProject_ReadFile theFile = new TeamProject_ReadFile();
+	   ArrayList<ResultPair> rpList = new ArrayList<ResultPair>();
+	   
+	   theFile.openFile(dir, f);
+	   rpList = theFile.readFile_CreateResultPair();
+	   theFile.closeFile();
+	   
+	   return rpList;
+   }
+   
+   public void display_ResultPairList(ArrayList<ResultPair> rpList)
+   {
+	   int i;
+	   
+	   for(i = 0; i < rpList.size(); i++)
+	   {
+		   System.out.printf("%s %s\n", rpList.get(i).item, rpList.get(i).valid);
+	   }
+	   
+   }
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
    public void testAnyOtherUnitTest()
    {
+//	   TeamProject_CreateFile x = new TeamProject_CreateFile();
 	   
+	   
+	   
+	   
+	   // Used to write data to a file
+//	   x.openFile(workingDir, "testing.txt");
+//	   for(int i = 0; i < testPair.length; i++)
+//	   {
+//		   x.add_ResultPair(testPair[i].item, testPair[i].valid);
+//	   }
+//	   x.closeFile();
    }
    /**
     * Create set of tests by taking the testUrlXXX arrays and
