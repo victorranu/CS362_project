@@ -574,8 +574,6 @@ public class UrlValidatorTest extends TestCase {
    
    public void test_localHostUrls()
    {
-	   int i;	// loops
-	   
 	   // turn local host allow on or true for these tests
 	   UrlValidator urlVal = new UrlValidator(UrlValidator.ALLOW_LOCAL_URLS);
 	   

@@ -126,7 +126,15 @@ From:	LocalHost URL Test
 		FAIL -- Result / Expected == false / true --- URL tested = http://localhost:8080/CS362/ProjectPartB.html
 		
 	Review:
-		- +++++++++++ Still need to look into why +++++++++++++++++++
+		- Stepped through code and found: Improper logic in DomainValidator.java Line: 136
+		- After a call to inValid() in RegexValidator.java, the tested string produced a true return value from the isValid().
+		- However, the logic of: if (!hostnameRegex.isValid(domain)) pushes the step to a return false rather than return true from Line: 136.
+		- I removed the "!" or not from the logic and produced the following results from the test:
+			PASS -- Result / Expected == true / true --- URL tested = http://localhost/ProjectPartB.html
+			FAIL -- Result / Expected == false / true --- URL tested = http://localhost:8080/CS362/ProjectPartB.htm
+		- Therefore, this didn't not fully fix the bug, or there is another issue causing the 2nd FAIL
+		
+		- Stepped through code .......... Cant figure it out yet.
 
 Bug Summary:
 	Bug #	-	 		File				-	Line	- 	Issue
