@@ -17,6 +17,7 @@
 
 
 import junit.framework.TestCase;
+
 import java.io.*;
 import java.util.*;
 import java.lang.*;
@@ -571,7 +572,27 @@ public class UrlValidatorTest extends TestCase {
 	   
    }
    
-   
+   public void test_localHostUrls()
+   {
+	   int i;	// loops
+	   
+	   // turn local host allow on or true for these tests
+	   UrlValidator urlVal = new UrlValidator(UrlValidator.ALLOW_LOCAL_URLS);
+	   
+	   // manual test inputs:
+	   ResultPair[] man_LocalHostList = 
+		   {
+//			   new ResultPair(fixedStr + testThisItem	, testThisValid),					// This is for a quick test check
+			   new ResultPair("http://localhost/ProjectPartB.html"				, true),	// 1 - localHost no port
+			   new ResultPair("http://localhost:8080/CS362/ProjectPartB.html"	, true),	// 2 - localHost with port
+		   };
+	   
+	   if (displayResults == true)	{	displayResults(urlVal, man_LocalHostList, "LocalHost URL Test");	}
+	   
+	   // assert checks
+	   assertEquals(urlVal.isValid(man_LocalHostList[0].item), man_LocalHostList[0].valid);
+	   assertEquals(urlVal.isValid(man_LocalHostList[1].item), man_LocalHostList[1].valid);
+   }
    
    
    
@@ -584,18 +605,7 @@ public class UrlValidatorTest extends TestCase {
    
    public void testAnyOtherUnitTest()
    {
-//	   TeamProject_CreateFile x = new TeamProject_CreateFile();
 	   
-	   
-	   
-	   
-	   // Used to write data to a file
-//	   x.openFile(workingDir, "testing.txt");
-//	   for(int i = 0; i < testPair.length; i++)
-//	   {
-//		   x.add_ResultPair(testPair[i].item, testPair[i].valid);
-//	   }
-//	   x.closeFile();
    }
    /**
     * Create set of tests by taking the testUrlXXX arrays and

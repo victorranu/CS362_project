@@ -119,9 +119,18 @@ From:	TLD Partition Tests
 				- Example: .us (Country Code for United States)
 			- The COUNTRY_CODE_TLDS String array need to have a more inclusive list of country cods
 			- The GENERIC_TLDS String array need to have a more inclusive list of country cods
+			
+From:	LocalHost URL Test
+	Test Results:
+		FAIL -- Result / Expected == false / true --- URL tested = http://localhost/ProjectPartB.html
+		FAIL -- Result / Expected == false / true --- URL tested = http://localhost:8080/CS362/ProjectPartB.html
+		
+	Review:
+		- +++++++++++ Still need to look into why +++++++++++++++++++
 
 Bug Summary:
 	Bug #	-	 		File				-	Line	- 	Issue
 =======================================================================================
 	0001	-	InetAddressValidator.java	-	96		- 	Logic error: iIpSegment > 255 returns true. This return should be false.
 	0002	-	DomainValidator.java		- 	248-359	- 	The COUNTRY_CODE_TLDS & GENERIC_TLDS are not comprehensive. COUNTRY_CODE_TLDS list is grossly missing country codes.
+	0003	-	... SEE: LocalHost URL Test
