@@ -129,16 +129,19 @@ From:	LocalHost URL Test
 		- Stepped through code and found: Improper logic in DomainValidator.java Line: 136
 		- After a call to inValid() in RegexValidator.java, the tested string produced a true return value from the isValid().
 		- However, the logic of: if (!hostnameRegex.isValid(domain)) pushes the step to a return false rather than return true from Line: 136.
-		- I removed the "!" or not from the logic and produced the following results from the test:
+		- I removed the "!" (or not) from the logic and produced the following results from the test:
 			PASS -- Result / Expected == true / true --- URL tested = http://localhost/ProjectPartB.html
 			FAIL -- Result / Expected == false / true --- URL tested = http://localhost:8080/CS362/ProjectPartB.htm
 		- Therefore, this didn't not fully fix the bug, or there is another issue causing the 2nd FAIL
 		
-		- Stepped through code .......... Cant figure it out yet.
+		- Stepped through code .......... Cant figure it out yet. I wonder if it does have something to do with the port. 
+		- I dont understand the difference, I got the basic layout of the urls from examples of localHost from internet. 
 
 Bug Summary:
 	Bug #	-	 		File				-	Line	- 	Issue
 =======================================================================================
 	0001	-	InetAddressValidator.java	-	96		- 	Logic error: iIpSegment > 255 returns true. This return should be false.
 	0002	-	DomainValidator.java		- 	248-359	- 	The COUNTRY_CODE_TLDS & GENERIC_TLDS are not comprehensive. COUNTRY_CODE_TLDS list is grossly missing country codes.
-	0003	-	... SEE: LocalHost URL Test
+	0003	-	DomainValidator.java		-	136		- 	Logic error: if (!hostnameRegex.isValid(domain)) { return true; }. The isValid() in RegexValidator.java returned a true. 
+																The logic ignores this true and pushes the return value in DomainValidator.java to be false.
+	0004	- 								- 			- 	...
