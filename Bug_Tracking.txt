@@ -1,3 +1,5 @@
+Tests - Results - Reviews
+================================================================================================================================================
 From:	Full URL Manual Tests
 	Test Results:
 		PASS -- Result / Expected == false / false --- URL tested = Test
@@ -16,10 +18,20 @@ From:	Full URL Manual Tests
 		PASS -- Result / Expected == false / false --- URL tested = 9
 		PASS -- Result / Expected == true / true --- URL tested = https://123.123.123.123.com
 		PASS -- Result / Expected == true / true --- URL tested = https://www.123.123.123.123.com
+
+	Review:
+		- FAIL -- Result / Expected == false / true --- URL tested = https://google.com:3535
+			- SEE REVIEW: LocalHost URL Test
+		- FAIL -- Result / Expected == true / false --- URL tested = http://256.256.256.256
+			- SEE REVIEW: IPv4 Partition Tests
+		- FAIL -- Result / Expected == false / true --- URL tested = http://google.com?action=lend
+			- SEE REVIEW: 
 		
+================================================================================================================================================
 From:	Scheme Partition Tests
 	No bugs found yet.
-	
+
+================================================================================================================================================
 From:	Host Partition Tests
 	Test Results:
 		PASS -- Result / Expected == false / false --- URL tested = http://Test?action=view
@@ -29,6 +41,7 @@ From:	Host Partition Tests
 		FAIL -- Result / Expected == false / true --- URL tested = http://www.com?action=view
 		FAIL -- Result / Expected == false / true --- URL tested = http://www.google.com?action=view
 		
+================================================================================================================================================
 From:	Port Partition Tests
 	Test Results:
 		PASS -- Result / Expected == false / false --- URL tested = http://www.google.comTest
@@ -42,10 +55,15 @@ From:	Port Partition Tests
 		PASS -- Result / Expected == false / false --- URL tested = http://www.google.com:123456
 		PASS -- Result / Expected == false / false --- URL tested = http://www.google.com:1234567
 		PASS -- Result / Expected == false / false --- URL tested = http://www.google.com:xyz
+		
+	Review:
+		- SEE REVIEW: LocalHost URL Test
 
+================================================================================================================================================
 From:	Path Partition Tests
 	No bugs found yet.
 	
+================================================================================================================================================
 From:	Query Partition Tests
 	Test Results:
 		PASS -- Result / Expected == false / false --- URL tested = http://www.google.comTest
@@ -55,6 +73,7 @@ From:	Query Partition Tests
 		FAIL -- Result / Expected == false / true --- URL tested = http://www.google.com?action=this&that=y0
 		FAIL -- Result / Expected == false / true --- URL tested = http://www.google.com??
 		
+================================================================================================================================================
 From:	IPv4 Partition Tests
 	Test Results:
 		PASS -- Result / Expected == false / false --- URL tested = http://Test
@@ -80,6 +99,7 @@ From:	IPv4 Partition Tests
 			- if (iIpSegment > 255) { return true; }
 			- the return value is incorrect, this should return a false when a iIpSegment is > 255.
 
+================================================================================================================================================
 From:	TLD Partition Tests
 	Test Results:
 		TLD - Country:
@@ -120,6 +140,7 @@ From:	TLD Partition Tests
 			- The COUNTRY_CODE_TLDS String array need to have a more inclusive list of country cods
 			- The GENERIC_TLDS String array need to have a more inclusive list of country cods
 			
+================================================================================================================================================
 From:	LocalHost URL Test
 	Test Results:
 		FAIL -- Result / Expected == false / true --- URL tested = http://localhost/ProjectPartB.html
@@ -134,14 +155,33 @@ From:	LocalHost URL Test
 			FAIL -- Result / Expected == false / true --- URL tested = http://localhost:8080/CS362/ProjectPartB.htm
 		- Therefore, this didn't not fully fix the bug, or there is another issue causing the 2nd FAIL
 		
-		- Stepped through code .......... Cant figure it out yet. I wonder if it does have something to do with the port. 
-		- I dont understand the difference, I got the basic layout of the urls from examples of localHost from internet. 
+		- Tried different ports and found some work and others didn't (Example: Port:001 == true, Port:9 == true, Port:8080 == false | All should be true).
+		- Entered manual tests for Port value lengths of 0 - 6 (a port is a 16-bit unsigned int thus 65535 or 1 - 5 digits in length).
+			- New test results:
+				PASS -- Result / Expected == false / false --- Port tested = localhost:
+				PASS -- Result / Expected == true / true --- Port tested = localhost:1
+				PASS -- Result / Expected == true / true --- Port tested = localhost:10
+				PASS -- Result / Expected == true / true --- Port tested = localhost:100
+				FAIL -- Result / Expected == false / true --- Port tested = localhost:1000
+				FAIL -- Result / Expected == false / true --- Port tested = localhost:10000
+				PASS -- Result / Expected == false / false --- Port tested = localhost:100000
+		- Ports are checked in UrlValidator.java Line: 393 (!PORT_PATTERN.matcher(port).matches()). This is controlled by the regular expression in UrlValidator.java Line: 158.
+		- This regular expression states: "^:(\\d{1,3})$" --- 1 to 3 consecutive occurrences of any of the digits 0-9
+			- This is why Port:123 works and Port:1234 does not. 
+			- should be: "^:(\\d{1,5})$"
 
+================================================================================================================================================
 Bug Summary:
 	Bug #	-	 		File				-	Line	- 	Issue
-=======================================================================================
+------------------------------------------------------------------------------------------------------------------------------------------------
 	0001	-	InetAddressValidator.java	-	96		- 	Logic error: iIpSegment > 255 returns true. This return should be false.
 	0002	-	DomainValidator.java		- 	248-359	- 	The COUNTRY_CODE_TLDS & GENERIC_TLDS are not comprehensive. COUNTRY_CODE_TLDS list is grossly missing country codes.
 	0003	-	DomainValidator.java		-	136		- 	Logic error: if (!hostnameRegex.isValid(domain)) { return true; }. The isValid() in RegexValidator.java returned a true. 
 																The logic ignores this true and pushes the return value in DomainValidator.java to be false.
-	0004	- 								- 			- 	...
+	0004	- 	UrlValidator.java			- 	158		- 	Regular Expression Logic error: The regular expression only allows ports of 1 to 3 digits in length while expectable ports
+																may be 1 to 5 digits in length.
+	0005	- 	UrlValidator.java			- 	158		- 	Once bug 0004 is corrected in its current state it does not account for port numbers > 65535. Port numbers
+																are 16-bit unsigned integers and therefore 65535 is the largest valid port value. The current change will allow for any 5 digit combination.
+	0006	-								- 			- 	May have a 5th from Josh, just noting here to look - UrlValidator.java Line:446 --- return !QUERY_PATTERN.matcher(query).matches();
+	
+	
