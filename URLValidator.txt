@@ -1,0 +1,15 @@
+Methodology of testing:
+- for manual testing, provide some of your (not all) urls.
+- for partitioning, mention your partitions with reasons.
+- for unit tests/random tests, submit your unit tests using svn under URLValidator folder. Mention name of tests in this report.
+
+How did you work in the team? 
+
+How did you divide your work?
+
+How did you collaborate?
+
+Bug Reporting:
+- Write bug report for each of the bugs you found. 
+- mention in the bug report, file name and line number where bug manifested
+- do not svn bug reports, dump bug report into this report.
