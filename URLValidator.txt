@@ -1,0 +1,325 @@
+Title and Names here
+
+--------------------------------------------------------------------------------------------------------------------------------------
+Methodology of testing:
+	Manual Testing, Partition Testing, Program Testing, Agan’s Principles.
+
+Manual Testing:
+	
+
+Partition Testing:
+	
+
+Program Testing:
+	
+
+Agan’s Principles:
+	
+
+======================================================================================================================================
+
+Team Collaboration:
+	
+
+======================================================================================================================================
+
+Bug Report:
+	Abstract:
+	Total bugs found:	5
+		Bug #	-	 		File				-	Line	- 	Issue
+--------------------------------------------------------------------------------------------------------------------------------------
+		001		-	InetAddressValidator.java	-	96		- 	Logic error: iIpSegment > 255 returns true. This return should be false.
+		002		-	DomainValidator.java		- 	248-359	- 	The COUNTRY_CODE_TLDS & GENERIC_TLDS are not comprehensive. COUNTRY_CODE_TLDS list is grossly missing country codes.
+		003		-	DomainValidator.java		-	136		- 	Logic error: if (!hostnameRegex.isValid(domain)) { return true; }. The isValid() in RegexValidator.java returned a true. 
+																	The logic ignores this true and pushes the return value in DomainValidator.java to be false.
+		004		- 	UrlValidator.java			- 	158		- 	Regular Expression Logic error: The regular expression only allows ports of 1 to 3 digits in length while expectable ports
+																	may be 1 to 5 digits in length.
+		005		- 	UrlValidator.java			- 	158		- 	Once bug 004 is corrected in its current state it does not account for port numbers > 65535. Port numbers
+																	are 16-bit unsigned integers and therefore 65535 is the largest valid port value. The current change will allow for any 5 digit combination.
+		006		-								- 			- 	May have a 6th from Joshua, just noting here to look - UrlValidator.java Line:446 --- return !QUERY_PATTERN.matcher(query).matches();
+		
+	Detail:
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Title:	001	-	InetAddressValidator.java	-	96
+
+Class:
+e.g. "Feature Request", "System Error", "Serious Bug"
+
+Date:           
+Reported By:   
+Email:      
+
+
+Product:                        Version:
+Platform:                       Version:
+Browser:                        Version:
+URL:        
+
+Is it reproducible: Yes / Occasionally / One Time / No
+
+Description
+===========
+
+
+
+Steps to Produce/Reproduce
+--------------------------
+
+
+
+Expected Results
+----------------
+
+
+
+Actual Results
+--------------
+
+
+
+Workarounds
+-----------
+
+
+
+Attachments
+-----------
+
+
+
+Other Information
+-----------------
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Title:	002	-	DomainValidator.java	- 	248-359
+
+Class:
+e.g. "Feature Request", "System Error", "Serious Bug"
+
+Date:           
+Reported By:   
+Email:      
+
+
+Product:                        Version:
+Platform:                       Version:
+Browser:                        Version:
+URL:        
+
+Is it reproducible: Yes / Occasionally / One Time / No
+
+Description
+===========
+
+
+
+Steps to Produce/Reproduce
+--------------------------
+
+
+
+Expected Results
+----------------
+
+
+
+Actual Results
+--------------
+
+
+
+Workarounds
+-----------
+
+
+
+Attachments
+-----------
+
+
+
+Other Information
+-----------------
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Title:	003	-	DomainValidator.java	-	136
+
+Class:
+e.g. "Feature Request", "System Error", "Serious Bug"
+
+Date:           
+Reported By:   
+Email:      
+
+
+Product:                        Version:
+Platform:                       Version:
+Browser:                        Version:
+URL:        
+
+Is it reproducible: Yes / Occasionally / One Time / No
+
+Description
+===========
+
+
+
+Steps to Produce/Reproduce
+--------------------------
+
+
+
+Expected Results
+----------------
+
+
+
+Actual Results
+--------------
+
+
+
+Workarounds
+-----------
+
+
+
+Attachments
+-----------
+
+
+
+Other Information
+-----------------
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Title:	004	- 	UrlValidator.java	- 	158
+
+Class:
+e.g. "Feature Request", "System Error", "Serious Bug"
+
+Date:           
+Reported By:   
+Email:      
+
+
+Product:                        Version:
+Platform:                       Version:
+Browser:                        Version:
+URL:        
+
+Is it reproducible: Yes / Occasionally / One Time / No
+
+Description
+===========
+
+
+
+Steps to Produce/Reproduce
+--------------------------
+
+
+
+Expected Results
+----------------
+
+
+
+Actual Results
+--------------
+
+
+
+Workarounds
+-----------
+
+
+
+Attachments
+-----------
+
+
+
+Other Information
+-----------------
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Title:	005	- 	UrlValidator.java	- 	158
+
+Class:
+e.g. "Feature Request", "System Error", "Serious Bug"
+
+Date:           
+Reported By:   
+Email:      
+
+
+Product:                        Version:
+Platform:                       Version:
+Browser:                        Version:
+URL:        
+
+Is it reproducible: Yes / Occasionally / One Time / No
+
+Description
+===========
+
+
+
+Steps to Produce/Reproduce
+--------------------------
+
+
+
+Expected Results
+----------------
+
+
+
+Actual Results
+--------------
+
+
+
+Workarounds
+-----------
+
+
+
+Attachments
+-----------
+
+
+
+Other Information
+-----------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
