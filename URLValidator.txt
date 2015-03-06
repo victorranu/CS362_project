@@ -36,7 +36,8 @@ Bug Report:
 																	may be 1 to 5 digits in length.
 		005		- 	UrlValidator.java			- 	158		- 	Once bug 004 is corrected in its current state it does not account for port numbers > 65535. Port numbers
 																	are 16-bit unsigned integers and therefore 65535 is the largest valid port value. The current change will allow for any 5 digit combination.
-		006		-								- 			- 	May have a 6th from Joshua, just noting here to look - UrlValidator.java Line:446 --- return !QUERY_PATTERN.matcher(query).matches();
+		006		-	UrlValidator.java			- 	446		- 	Logic error: line 446 of isValidQuery(String query) function returns the negated boolean result of QUERY_PATTERN.matcher(query).matches(),
+																	which results in correct queries strings being rejected as incorrect, and incorrect queries as passing the validity check
 		
 	Detail:
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -299,7 +300,56 @@ Other Information
 -----------------
 
 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Title:	006	- 	UrlValidator.java	- 	446
 
+Class: logic error, serious bug
+
+Date:           
+Reported By:		Joshua McQueen
+Email:      		mcqueejo@onid.oregonstate.edu
+
+
+Product:                        Version:
+Platform:                       Version:
+Browser:                        Version:
+URL:        
+
+Is it reproducible: Yes
+
+Description
+===========
+Function isValidQuery(String query) has an improper negation of the return value of QUERY_PATTERN.matcher(query).matches(); this has
+the opposite effect of validation- valid query strings will be rejected but invalid query strings will pass
+
+
+Steps to Produce/Reproduce
+--------------------------
+code:
+1	UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+2	String query = "https://www.google.com/search?q=oregon+state+university";
+3	if(urlVal.isValidQuery(query))
+4		System.out.println("query string PASSES");
+5	else
+6		System.out.println("query string FAILS");
+
+
+Expected Results
+----------------
+"query string PASSES" is printed to console
+
+
+Actual Results
+--------------
+"query string FAILS" is printed to console
+
+
+Workarounds
+-----------
+change line 446 from:
+	return !QUERY_PATTERN.matcher(query).matches();
+to
+	return QUERY_PATTERN.matcher(query).matches();	
 
 
 
